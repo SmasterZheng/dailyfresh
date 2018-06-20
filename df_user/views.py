@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
-from models import *
+from .models import *
 from hashlib import sha1
 from django.http import JsonResponse
 from .islogin import islogin
