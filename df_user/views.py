@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
-from models import *
+from . import models
 from hashlib import sha1
 from django.http import JsonResponse
 from .islogin import islogin
@@ -34,7 +34,7 @@ def register_handle(requst):
     s1.update(upwd)
     upwd3 = s1.hexdigest()
 
-    user = UserInfo()
+    user = models.UserInfo()
     user.uname = uname
     user.upwd = upwd3
     user.uemail = uemail
@@ -45,7 +45,7 @@ def register_handle(requst):
 # 判断用户是否已经存在
 def register_exist(requset):
     uname = requset.GET.get('uname')
-    count = UserInfo.objects.filter(uname=uname).count()
+    count = models.UserInfo.objects.filter(uname=uname).count()
     return JsonResponse({'count': count})
 
 
@@ -64,7 +64,7 @@ def login_handle(request):
     upwd = get.get('pwd')
     jizhu = get.get('jizhu', 0)
     # 根据用户名查询对象
-    users = UserInfo.objects.filter(uname=uname)
+    users = models.UserInfo.objects.filter(uname=uname)
     # print uname
     # 判断如果未查到则用户名错，查到再判断密码是否正确，正确则转到用户中心
     if len(users) == 1:
